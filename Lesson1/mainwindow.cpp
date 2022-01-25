@@ -68,3 +68,36 @@ void MainWindow::on_edTask1Result_textChanged(const QString &arg1)
     }
 }
 
+
+void MainWindow::on_btnTask2Calc_pressed()
+{
+    double a = ui->edTriA->text().toDouble();
+    double b = ui->edTriB->text().toDouble();
+    double angle = ui->edAngle->text().toDouble();
+
+    if(ui->rbDegree->isChecked())
+        angle = qDegreesToRadians(angle);
+
+    double c = qSqrt(a * a + b * b - 2 * a * b * qCos(angle));
+
+    ui->edTask2Result->setText("Сторона C = " + QString::number(c));
+}
+
+void MainWindow::on_btnAddHtmlToText1_pressed()
+{
+    ui->pteText1->appendHtml("<font color='red'>Hello HTML!</font>");
+}
+
+
+void MainWindow::on_btnAppendText1ToText2_pressed()
+{
+    ui->pteText2->appendHtml(ui->pteText1->document()->toHtml());
+}
+
+
+void MainWindow::on_btnReplaceText1ToText2_2_pressed()
+{
+    ui->pteText2->clear();
+    ui->pteText2->appendHtml(ui->pteText1->document()->toHtml());
+}
+
