@@ -14,11 +14,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-static bool IsEqual(double left, double right, double eps = std::numeric_limits<double>::epsilon())
-{
-   return qAbs(left - right) < eps;
-}
-
 void MainWindow::on_btnTask1Calc_pressed()
 {
     double a = ui->edA->text().toDouble();
@@ -32,9 +27,9 @@ void MainWindow::on_btnTask1Calc_pressed()
 
     if (discriminant < 0.0) {
         ui->edTask1Result->setText("Действительных корней уравнения не существует.");
-    } else if(IsEqual(0.0, a)) {
-        if (IsEqual(0.0, b)) {
-            if (IsEqual(0.0, c)) {
+    } else if(qFuzzyIsNull(a)) {
+        if (qFuzzyIsNull(b)) {
+            if (qFuzzyIsNull(c)) {
                 ui->edTask1Result->setText("Существует бесконечное множество решений.");
              } else {
                 ui->edTask1Result->setText("Действительных корней уравнения не существует.");
@@ -45,10 +40,10 @@ void MainWindow::on_btnTask1Calc_pressed()
         }
     } else {
         double discriminantSqrt = qSqrt(discriminant);
-        if (IsEqual(0.0, b)) {
+        if (qFuzzyIsNull(b)) {
             x1 = discriminantSqrt / (2 * a);
             ui->edTask1Result->setText("x1 = x2 = " + QString::number(x1));
-        } else if(IsEqual(0.0, discriminant)) {
+        } else if(qFuzzyIsNull(discriminant)) {
             x1 = -(b / (2 * a));
             ui->edTask1Result->setText("x1 = x2 = " + QString::number(x1));
         } else {
