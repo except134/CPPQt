@@ -30,9 +30,12 @@ private slots:
 
     void on_btnDown_pressed();
 
+    void on_btnFillColor_pressed();
+
 private:
     Ui::MainWindow *ui;
     ParseText *parseText;
     QStandardItemModel *model;
+    QStandardItemModel *compModel;
 };
 #endif // MAINWINDOW_H

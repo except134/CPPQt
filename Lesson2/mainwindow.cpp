@@ -18,6 +18,39 @@ MainWindow::MainWindow(QWidget *parent)
      model->appendRow(new QStandardItem(QIcon("./data/php.png"),"PHP"));
      model->appendRow(new QStandardItem(QIcon("./data/python.png"),"Python"));
      model->appendRow(new QStandardItem(QIcon("./data/javascript.png"),"JavaScript"));
+
+     compModel = new QStandardItemModel(this);
+     ui->tblvComps->setModel(compModel);
+
+     compModel->setHorizontalHeaderItem(0,new QStandardItem(QString("№")));
+     compModel->setHorizontalHeaderItem(1,new QStandardItem(QString("Имя компьютера")));
+     compModel->setHorizontalHeaderItem(2,new QStandardItem(QString("IP адрес")));
+     compModel->setHorizontalHeaderItem(3,new QStandardItem(QString("MAC адрес")));
+
+     QList<QStandardItem*>list;
+     list.append(new QStandardItem("1"));
+     list.append(new QStandardItem("comp1"));
+     list.append(new QStandardItem("127.0.0.1"));
+     list.append(new QStandardItem("00-D8-61-D9-00-CF"));
+     compModel->appendRow(list);
+     list.clear();
+     list.append(new QStandardItem("2"));
+     list.append(new QStandardItem("comp2"));
+     list.append(new QStandardItem("10.0.0.1"));
+     list.append(new QStandardItem("00-D9-61-D9-00-CF"));
+     compModel->appendRow(list);
+     list.clear();
+     list.append(new QStandardItem("3"));
+     list.append(new QStandardItem("comp3"));
+     list.append(new QStandardItem("10.1.0.1"));
+     list.append(new QStandardItem("00-D9-71-D9-00-CF"));
+     compModel->appendRow(list);
+     list.clear();
+     list.append(new QStandardItem("4"));
+     list.append(new QStandardItem("comp4"));
+     list.append(new QStandardItem("10.1.1.1"));
+     list.append(new QStandardItem("00-D9-91-D9-00-CF"));
+     compModel->appendRow(list);
 }
 
 MainWindow::~MainWindow()
@@ -92,5 +125,20 @@ void MainWindow::on_btnDown_pressed()
         model->insertRow(currRow, item1);
         model->insertRow(currRow + 1, item2);
     }
+}
+
+
+void MainWindow::on_btnFillColor_pressed()
+{
+    QModelIndexList lst = ui->tblvComps->selectionModel()->selectedRows();
+
+    for(auto i : lst) {
+        int ii = i.model()->columnCount();
+        for(int j = 0; j < ii; j++) {
+            QStandardItem* item = compModel->item(i.row(), j);
+            item->setBackground(QBrush(Qt::GlobalColor::green));
+        }
+    }
+
 }
 
