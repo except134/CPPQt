@@ -53,9 +53,8 @@ QString ParseText::GetText()
     return text;
 }
 
-QString ParseText::InsertSymbol(QString example)
+QString ParseText::InsertSymbol(cont QString& str)
 {
-    QString str = example;
     if(str == "rub")
         return "₽";
     if(str == "copy")
